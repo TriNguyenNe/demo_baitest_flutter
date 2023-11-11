@@ -51,30 +51,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double width =MediaQuery.of(context).size.width;
+    final double height =MediaQuery.of(context).size.height;
     return Scaffold(
         body: Obx(() => Container(
             alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Row(
+            width: width,
+            height: height,
+            child:
+            (width >800)?
+            Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 cardView(0.0, 'Our Products', false),
                 cardView(controller.totalCarts.value, 'Your Cart', true),
               ],
-            ))));
+            ):SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  cardView(0.0, 'Our Products', false),
+                  cardView(controller.totalCarts.value, 'Your Cart', true),
+                ],
+              ),
+            ),
+        ),
+        ),
+    );
   }
 
   Widget cardView(double totals, String title, bool isCart) {
     return Obx(() => Container(
       padding: EdgeInsets.zero,
-      width: 400,
-      height: 600,
+      width: 350,
+      height: 580,
       margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-
         boxShadow: const [ BoxShadow(
           color: Colors.grey,
           offset: Offset(0, 2), // Vị trí đổ shadow theo trục x và y
