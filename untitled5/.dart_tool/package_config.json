@@ -152,6 +152,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "wave",
+      "rootUri": "file:///C:/Users/TRI%20NGUYEN/AppData/Local/Pub/Cache/hosted/pub.dev/wave-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "web",
       "rootUri": "file:///C:/Users/TRI%20NGUYEN/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.3.0",
       "packageUri": "lib/",
@@ -164,7 +170,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-11-11T04:23:04.353610Z",
+  "generated": "2023-11-12T10:24:07.439191Z",
   "generator": "pub",
   "generatorVersion": "3.2.0-210.4.beta"
 }

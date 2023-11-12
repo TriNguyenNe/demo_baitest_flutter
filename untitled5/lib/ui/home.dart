@@ -1,19 +1,25 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled5/configuration/config.dart';
+import 'package:untitled5/configuration/link_picture.dart';
 import 'package:untitled5/controller/controller.dart';
 import 'package:untitled5/model/cart_model.dart';
 import 'package:untitled5/model/shoes_model.dart';
 import 'package:intl/intl.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 import '../localstorage/localstorage_helper.dart';
 
-///https://demo-baitest-flutter-8zv8.vercel.app/assets/assets/check.png
+//https://demo-baitest-flutter-8zv8.vercel.app/assets/assets/check.png
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   final Controller controller = Controller();
 
   //double height = 500;
@@ -44,31 +50,47 @@ class _HomePageState extends State<HomePage> {
   double width = 370.0;
   double height = 650.0;
   NumberFormat format = NumberFormat.currency(locale: 'en_US', symbol: '\$');
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+
+    _controller.addListener(() {
+      setState(() {});
+    });
     getDataLocalStorage();
   }
-  Future<void> getDataLocalStorage() async {
-    try {
-      controller.setShoesListFromJson();
-      List<CartModel> carts =await LocalStorageHelper.getInfoObject();
-      controller.carts.value = carts;
 
-      for(CartModel a in carts){
-        controller.totalCarts.value += a.number*a.shoesModel.price;
-        for(int i=0;i<controller.listShoes.length;i++){
-          if(controller.listShoes[i].id == a.shoesModel.id){
-              print(controller.listShoes[i].id);
+  Future<void> getDataLocalStorage() async {
+    List<CartModel> carts = [];
+    controller.listShoes.value =
+        await controller.fetchData.loadShoesFromJsonFile();
+    try {
+      carts = await LocalStorageHelper.getInfoObject();
+      controller.carts.value = carts;
+      for (CartModel a in controller.carts) {
+        controller.totalCarts.value += a.number * a.shoesModel.price;
+        for (int i = 0; i < controller.listShoes.value.length; i++) {
+          if (controller.listShoes.value[i].id == a.shoesModel.id) {
+            controller.listShoes.value[i].isSelected = true;
           }
+          // print(controller.listShoes.value[i].id );
         }
       }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
+
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
@@ -76,6 +98,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Obx(() => Stack(
             children: [
+              Positioned(
+                  bottom:0,
+                  left: -200,
+                  child: Container(
+                width: 2000,
+                height: 400,
+
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(topLeft: Radius.elliptical(2000, 300)),
+                  color: color_yellow,
+                ),
+              )),
               Container(
                 //padding: EdgeInsets.only(bottom: 50, top: 30),
                 alignment: Alignment.center,
@@ -150,8 +184,10 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        'assets/assets/nike.png',
+                      Image.network(
+                        (Configuration.host_picture +
+                                linkPicture['link-nike'].toString())
+                            .trim(),
                         width: 50,
                         height: 50,
                       ),
@@ -190,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                                       Color color = Color(int.parse(
                                           a.color.replaceAll("#", "0xFF")));
                                       return Container(
-                                        margin: EdgeInsets.only(bottom: 20),
+                                        margin: const EdgeInsets.only(bottom: 20),
                                         padding: const EdgeInsets.all(5),
                                         child: Column(
                                           crossAxisAlignment:
@@ -289,10 +325,12 @@ class _HomePageState extends State<HomePage> {
                                                                   const EdgeInsets
                                                                       .all(5),
                                                               child:
-                                                                  Image.asset(
-                                                                'assets/assets/check.png',
-                                                                width: 20,
-                                                                height: 20,
+                                                              Image.network(
+                                                                (Configuration.host_picture +
+                                                                    linkPicture['link-check'].toString())
+                                                                    .trim(),
+                                                                width: 30,
+                                                                height: 30,
                                                               ),
                                                             )
                                                     ],
@@ -314,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                                 ))
                           : (controller.carts.value.isNotEmpty)
                               ? Container(
-                                  margin: EdgeInsets.only(bottom: 20),
+                                  margin: const EdgeInsets.only(bottom: 20),
                                   height: 500,
                                   child: ListView.builder(
                                     physics: const ScrollPhysics(),
@@ -412,8 +450,10 @@ class _HomePageState extends State<HomePage> {
                                                               BorderRadius
                                                                   .circular(50),
                                                         ),
-                                                        child: Image.asset(
-                                                          'assets/assets/plus.png',
+                                                        child: Image.network(
+                                                          (Configuration.host_picture +
+                                                              linkPicture['link-plus'].toString())
+                                                              .trim(),
                                                           width: 10,
                                                           height: 10,
                                                         ),
@@ -464,8 +504,10 @@ class _HomePageState extends State<HomePage> {
                                                               BorderRadius
                                                                   .circular(50),
                                                         ),
-                                                        child: Image.asset(
-                                                          'assets/assets/minus.png',
+                                                        child: Image.network(
+                                                          (Configuration.host_picture +
+                                                              linkPicture['link-minus'].toString())
+                                                              .trim(),
                                                           width: 10,
                                                           height: 10,
                                                         ),
@@ -488,11 +530,13 @@ class _HomePageState extends State<HomePage> {
                                                                     .circular(
                                                                         50),
                                                           ),
-                                                          child: Image.asset(
-                                                            'assets/assets/trash.png',
+                                                          child: Image.network(
+                                                            (Configuration.host_picture +
+                                                                linkPicture['link-trash'].toString())
+                                                                .trim(),
                                                             width: 20,
                                                             height: 20,
-                                                          )),
+                                                          ),),
                                                       onTap: () {
                                                         setState(() {
                                                           for (int i = 0;
@@ -544,5 +588,39 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ));
+  }
+}
+class WavePainter extends CustomPainter {
+  final double animationValue;
+
+  WavePainter(this.animationValue);
+  Color color_yellow = const Color(0xFFf6c90e);
+  @override
+  void paint(Canvas canvas, Size size) {
+    final wavePaint = Paint()
+      ..color = color_yellow
+      ..style = PaintingStyle.fill;
+
+    final path = Path();
+
+    for (double i = 0; i <= size.width; i++) {
+      final y = sin((i / size.width * 2 * pi) + (animationValue * 2 * pi)) * 20 + 200;
+      if (i == 0) {
+        path.moveTo(i, y);
+      } else {
+        path.lineTo(i, y);
+      }
+    }
+
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+
+    canvas.drawPath(path, wavePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
