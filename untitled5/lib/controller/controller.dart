@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:untitled5/fetch_data/fecthData.dart';
+import 'package:untitled5/localstorage/localstorage_helper.dart';
 import 'package:untitled5/model/shoes_model.dart';
 
 import '../model/cart_model.dart';
@@ -22,6 +23,7 @@ class Controller{
         CartModel(shoesModel: shoes, number: 1) 
     );
     totalCarts.value = carts.value.map((cart) => cart.number * cart.shoesModel.price).reduce((a, b) => a + b);
+    LocalStorageHelper.saveInfoObject(carts);
   }
   void deleteShoes(CartModel cartModel){
     carts.removeWhere((cart) => cart == cartModel);

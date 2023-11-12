@@ -17,12 +17,29 @@ class ShoesModel {
 
   factory ShoesModel.fromJson(Map<String, dynamic> json){
     return ShoesModel(
-        id: (json['id']!=null) ? json['id']:0,
-        name:(json['name']!=null) ? json['name']:'' ,
-        image: (json['image']!=null) ? json['image']:'',
-        description: (json['description']!=null) ? json['description']:'',
-        price: (json['price']!=null) ?json['price']:0.0,
-        color: (json['color']!=null) ? json['color']:''
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      image: json['image'] ?? '',
+      description: json['description'] ?? '',
+      price: json['price']?.toDouble() ?? 0.0,
+      color: json['color'] ?? '',
+        // id: (json['id']!=null) ? json['id']:0,
+        // name:(json['name']!=null) ? json['name']:'' ,
+        // image: (json['image']!=null) ? json['image']:'',
+        // description: (json['description']!=null) ? json['description']:'',
+        // price: (json['price']!=null) ?json['price']:0.0,
+        // color: (json['color']!=null) ? json['color']:''
     );
+  }
+
+  Map<String,dynamic> toJson(){
+    return{
+      'id':id,
+      'name': name,
+      'image':image,
+      'description':description,
+      'price':price,
+      'color':color,
+    };
   }
 }
