@@ -535,16 +535,13 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
                                                               ),),
                                                             onTap: () {
                                                               setState(() {
-                                                                for (int i = 0;
-                                                                i <
-                                                                    controller
-                                                                        .listShoes
-                                                                        .length;
-                                                                i++) {
+                                                                print(controller .listShoes.length);
+                                                                for (int i = 0;i <controller .listShoes.length;i++) {
                                                                   if (controller
                                                                       .listShoes
-                                                                      .value[i] ==
-                                                                      a.shoesModel) {
+                                                                      .value[i].id ==
+                                                                      a.shoesModel.id) {
+                                                                    print('đã cập nhật');
                                                                     setState(() {
                                                                       controller
                                                                           .listShoes
