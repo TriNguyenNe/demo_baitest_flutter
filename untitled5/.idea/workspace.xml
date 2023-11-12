@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="917d2fe0-b779-435c-84e2-692d56b76139" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/configuration/link_picture.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension Scripts/CURRENT" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension Scripts/CURRENT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons-journal" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons-journal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History-journal" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History-journal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Network/TransportSecurity" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Network/TransportSecurity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Network/Trust Tokens" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Network/Trust Tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/configuration/config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/configuration/config.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/web/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +44,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../LapTrinhAndroid/test_animations" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
