@@ -28,7 +28,8 @@ class Controller{
   void deleteShoes(CartModel cartModel){
     carts.removeWhere((cart) => cart == cartModel);
     totalCarts.value = totalCarts.value - (cartModel.number * cartModel.shoesModel.price);
-
+    LocalStorageHelper.saveInfoObject(carts);
+    if(totalCarts<0) totalCarts.value=0.0;
   }
   void incrementNumber(CartModel cartModel){
     int i = 0;
@@ -40,6 +41,7 @@ class Controller{
       }
       i++;
     }
+    LocalStorageHelper.saveInfoObject(carts);
   }
   void decrementNumber(CartModel cartModel){
     int i = 0;
@@ -56,5 +58,7 @@ class Controller{
       }
       i++;
     }
+    if(totalCarts<0) totalCarts.value=0.0;
+    LocalStorageHelper.saveInfoObject(carts);
   }
 }
