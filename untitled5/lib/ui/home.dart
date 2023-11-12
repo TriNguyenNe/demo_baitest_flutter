@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset(
-                        'assets/nike.png',
+                        'assets/assets/nike.png',
                         width: 50,
                         height: 50,
                       ),
@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .all(5),
                                                               child:
                                                                   Image.asset(
-                                                                'assets/check.png',
+                                                                'assets/assets/check.png',
                                                                 width: 20,
                                                                 height: 20,
                                                               ),
@@ -413,7 +413,7 @@ class _HomePageState extends State<HomePage> {
                                                                   .circular(50),
                                                         ),
                                                         child: Image.asset(
-                                                          'assets/plus.png',
+                                                          'assets/assets/plus.png',
                                                           width: 10,
                                                           height: 10,
                                                         ),
@@ -465,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                                                                   .circular(50),
                                                         ),
                                                         child: Image.asset(
-                                                          'assets/minus.png',
+                                                          'assets/assets/minus.png',
                                                           width: 10,
                                                           height: 10,
                                                         ),
@@ -489,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                                                                         50),
                                                           ),
                                                           child: Image.asset(
-                                                            'assets/trash.png',
+                                                            'assets/assets/trash.png',
                                                             width: 20,
                                                             height: 20,
                                                           )),
