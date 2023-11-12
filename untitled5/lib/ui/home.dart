@@ -50,23 +50,13 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   double width = 370.0;
   double height = 650.0;
   NumberFormat format = NumberFormat.currency(locale: 'en_US', symbol: '\$');
-  late AnimationController _controller;
-  late Animation<double> _animation;
+
+  late AnimationController animationController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    )..repeat(reverse: true);
-
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-
-    _controller.addListener(() {
-      setState(() {});
-    });
     getDataLocalStorage();
   }
 
@@ -91,10 +81,9 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
     }
   }
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Obx(() => Stack(
             children: [
@@ -143,6 +132,9 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
   }
 
   Widget cardView(double totals, String title, bool isCart) {
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    CurvedAnimation animation = CurvedAnimation(parent: animationController, curve: Curves.easeOutCubic);
     return Obx(() => Container(
           width: width,
           height: 620,
@@ -294,6 +286,7 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
                                                                 controller
                                                                     .addToCart(
                                                                         a);
+                                                                animationController.forward();
                                                               },
                                                               child: Container(
                                                                   decoration: BoxDecoration(
@@ -365,210 +358,215 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
                                       Color color = Color(int.parse(a
                                           .shoesModel.color
                                           .replaceAll("#", "0xFF")));
-                                      return Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 120,
-                                              child: Stack(
-                                                alignment: Alignment.center,
+                                      return AnimatedBuilder(
+                                        animation:  animation,
+                                        builder: (BuildContext context, Widget? child) {
+                                            return Container(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                                 children: [
-                                                  Positioned(
-                                                    left: 10,
-                                                    top: (120 - 50) / 2,
-                                                    child: Container(
-                                                      width: 75,
-                                                      height: 75,
-                                                      decoration: BoxDecoration(
-                                                        color: color,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(100),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Transform.rotate(
-                                                    angle: -20 *
-                                                        3.1415926535897932 /
-                                                        180,
-                                                    // Chuyển đổi từ độ thành radian
-                                                    child: Image.network(
-                                                      a.shoesModel.image
-                                                          .toString(),
-                                                      width: 110,
-                                                      height: 110,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 190,
-                                                  child: Text(
-                                                    a.shoesModel.name,
-                                                    style: textStyleTitleCart,
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    format.format(
-                                                        a.shoesModel.price),
-                                                    style: textStyleTitleShoes,
-                                                  ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .incrementNumber(a);
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: color_grey,
-                                                          borderRadius:
+                                                  Container(
+                                                    height: 120,
+                                                    child: Stack(
+                                                      alignment: Alignment.center,
+                                                      children: [
+                                                        Positioned(
+                                                          left: 10,
+                                                          top: (120 - 50) / 2,
+                                                          child: Container(
+                                                            width: 75,
+                                                            height: 75,
+                                                            decoration: BoxDecoration(
+                                                              color: color,
+                                                              borderRadius:
                                                               BorderRadius
-                                                                  .circular(50),
+                                                                  .circular(100),
+                                                            ),
+                                                          ),
                                                         ),
-                                                        child: Image.network(
-                                                          (Configuration.host_picture +
-                                                              linkPicture['link-plus'].toString())
-                                                              .trim(),
-                                                          width: 10,
-                                                          height: 10,
+                                                        Transform.rotate(
+                                                          angle: -20 *
+                                                              3.1415926535897932 /
+                                                              180,
+                                                          // Chuyển đổi từ độ thành radian
+                                                          child: Image.network(
+                                                            a.shoesModel.image
+                                                                .toString(),
+                                                            width: 110,
+                                                            height: 110,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        width: 190,
+                                                        child: Text(
+                                                          a.shoesModel.name,
+                                                          style: textStyleTitleCart,
+                                                          maxLines: 2,
+                                                          overflow:
+                                                          TextOverflow.ellipsis,
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                          a.number.toString()),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        if (a.number == 1) {
-                                                          setState(() {
-                                                            for (int i = 0;
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          format.format(
+                                                              a.shoesModel.price),
+                                                          style: textStyleTitleShoes,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .incrementNumber(a);
+                                                            },
+                                                            child: Container(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                              decoration:
+                                                              BoxDecoration(
+                                                                color: color_grey,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(50),
+                                                              ),
+                                                              child: Image.network(
+                                                                (Configuration.host_picture +
+                                                                    linkPicture['link-plus'].toString())
+                                                                    .trim(),
+                                                                width: 10,
+                                                                height: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets.all(
+                                                                8.0),
+                                                            child: Text(
+                                                                a.number.toString()),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              if (a.number == 1) {
+                                                                setState(() {
+                                                                  for (int i = 0;
+                                                                  i <
+                                                                      controller
+                                                                          .listShoes
+                                                                          .length;
+                                                                  i++) {
+                                                                    if (controller
+                                                                        .listShoes
+                                                                        .value[i] ==
+                                                                        a.shoesModel) {
+                                                                      setState(() {
+                                                                        controller
+                                                                            .listShoes
+                                                                            .value[i]
+                                                                            .isSelected = false;
+                                                                      });
+                                                                    }
+                                                                  }
+                                                                });
+                                                              }
+                                                              controller
+                                                                  .decrementNumber(a);
+                                                            },
+                                                            child: Container(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                              decoration:
+                                                              BoxDecoration(
+                                                                color: color_grey,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(50),
+                                                              ),
+                                                              child: Image.network(
+                                                                (Configuration.host_picture +
+                                                                    linkPicture['link-minus'].toString())
+                                                                    .trim(),
+                                                                width: 10,
+                                                                height: 10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 80,
+                                                          ),
+                                                          // Spacer(),
+                                                          InkWell(
+                                                            child: Container(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                              decoration:
+                                                              BoxDecoration(
+                                                                color: color_yellow,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    50),
+                                                              ),
+                                                              child: Image.network(
+                                                                (Configuration.host_picture +
+                                                                    linkPicture['link-trash'].toString())
+                                                                    .trim(),
+                                                                width: 20,
+                                                                height: 20,
+                                                              ),),
+                                                            onTap: () {
+                                                              setState(() {
+                                                                for (int i = 0;
                                                                 i <
                                                                     controller
                                                                         .listShoes
                                                                         .length;
                                                                 i++) {
-                                                              if (controller
+                                                                  if (controller
                                                                       .listShoes
                                                                       .value[i] ==
-                                                                  a.shoesModel) {
-                                                                setState(() {
-                                                                  controller
-                                                                      .listShoes
-                                                                      .value[i]
-                                                                      .isSelected = false;
-                                                                });
-                                                              }
-                                                            }
-                                                          });
-                                                        }
-                                                        controller
-                                                            .decrementNumber(a);
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: color_grey,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(50),
-                                                        ),
-                                                        child: Image.network(
-                                                          (Configuration.host_picture +
-                                                              linkPicture['link-minus'].toString())
-                                                              .trim(),
-                                                          width: 10,
-                                                          height: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 80,
-                                                    ),
-                                                    // Spacer(),
-                                                    InkWell(
-                                                      child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: color_yellow,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        50),
-                                                          ),
-                                                          child: Image.network(
-                                                            (Configuration.host_picture +
-                                                                linkPicture['link-trash'].toString())
-                                                                .trim(),
-                                                            width: 20,
-                                                            height: 20,
-                                                          ),),
-                                                      onTap: () {
-                                                        setState(() {
-                                                          for (int i = 0;
-                                                              i <
-                                                                  controller
-                                                                      .listShoes
-                                                                      .length;
-                                                              i++) {
-                                                            if (controller
-                                                                    .listShoes
-                                                                    .value[i] ==
-                                                                a.shoesModel) {
-                                                              setState(() {
-                                                                controller
-                                                                    .listShoes
-                                                                    .value[i]
-                                                                    .isSelected = false;
+                                                                      a.shoesModel) {
+                                                                    setState(() {
+                                                                      controller
+                                                                          .listShoes
+                                                                          .value[i]
+                                                                          .isSelected = false;
+                                                                    });
+                                                                  }
+                                                                }
                                                               });
-                                                            }
-                                                          }
-                                                        });
 
-                                                        controller
-                                                            .deleteShoes(a);
-                                                      },
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                                              controller
+                                                                  .deleteShoes(a);
+                                                            },
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                        },
                                       );
                                     },
                                   ),
@@ -588,39 +586,5 @@ class _HomePageState extends State<HomePage>  with TickerProviderStateMixin {
             ),
           ),
         ));
-  }
-}
-class WavePainter extends CustomPainter {
-  final double animationValue;
-
-  WavePainter(this.animationValue);
-  Color color_yellow = const Color(0xFFf6c90e);
-  @override
-  void paint(Canvas canvas, Size size) {
-    final wavePaint = Paint()
-      ..color = color_yellow
-      ..style = PaintingStyle.fill;
-
-    final path = Path();
-
-    for (double i = 0; i <= size.width; i++) {
-      final y = sin((i / size.width * 2 * pi) + (animationValue * 2 * pi)) * 20 + 200;
-      if (i == 0) {
-        path.moveTo(i, y);
-      } else {
-        path.lineTo(i, y);
-      }
-    }
-
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    canvas.drawPath(path, wavePaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }
